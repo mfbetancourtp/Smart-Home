@@ -1,0 +1,48 @@
+<div class="dashboard-container">
+  <h2>Panel de Control - Casa Inteligente</h2>
+
+  <div *ngIf="errorMessage" class="alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <table class="table" *ngIf="dispositivos.length > 0">
+    <thead>
+      <tr>
+        <th>Dispositivo</th>
+        <th>Tipo</th>
+        <th>Ubicación</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of dispositivos">
+        <td>{{ d.nombre }}</td>
+        <td>{{ d.tipo }}</td>
+        <td>{{ d.ubicacion }}</td>
+        <td>
+          <span [ngClass]="{'estado-activo': d.estado === 'Activo', 'estado-inactivo': d.estado === 'Inactivo'}">
+            {{ d.estado }}
+          </span>
+        </td>
+        <td>
+          <button 
+            (click)="cambiarEstado(d.idDispositivo, 'Activo')" 
+            [disabled]="d.estado === 'Activo'">
+            Encender
+          </button>
+          
+          <button 
+            (click)="cambiarEstado(d.idDispositivo, 'Inactivo')" 
+            [disabled]="d.estado === 'Inactivo'">
+            Apagar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="dispositivos.length === 0 && !errorMessage">
+    Buscando dispositivos en el Hub central...
+  </p>
+</div>
