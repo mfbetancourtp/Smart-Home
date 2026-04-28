@@ -1,12 +1,16 @@
 [build]
-  # El comando para compilar
+  # 1. Le decimos dónde está el proyecto
+  base = "Frontend/smart-home-frontend"
+
+  # 2. El comando para compilar (estando ya dentro de la carpeta base)
   command = "ng build"
-  
-  # La carpeta donde Angular REALMENTE guardó los archivos según el log
+
+  # 3. La carpeta de salida (IMPORTANTE: Relativa a la base)
+  # Según tu último log exitoso, es esta:
   publish = "dist/smart-home-frontend"
 
 [[redirects]]
-  # Esto evita el error 404 al recargar la página
+  # Esto es para que Angular no dé 404 al recargar el navegador
   from = "/*"
   to = "/index.html"
   status = 200
