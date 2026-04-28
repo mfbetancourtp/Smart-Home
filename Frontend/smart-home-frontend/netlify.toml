@@ -1,12 +1,12 @@
 [build]
-  # Como el archivo ya está en la subcarpeta, el comando se ejecuta ahí mismo
+  # El comando para compilar
   command = "ng build"
   
-  # La ruta de publicación debe ser RELATIVA a donde está este archivo
-  publish = "dist/smart-home-frontend/browser"
+  # La carpeta donde Angular REALMENTE guardó los archivos según el log
+  publish = "dist/smart-home-frontend"
 
 [[redirects]]
-  # Esto es VITAL para que Angular funcione al refrescar la página
+  # Esto evita el error 404 al recargar la página
   from = "/*"
   to = "/index.html"
   status = 200
