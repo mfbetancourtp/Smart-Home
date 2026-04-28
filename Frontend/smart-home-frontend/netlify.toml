@@ -1,16 +1,15 @@
 [build]
-  # 1. Le decimos dónde está el proyecto
+  # Entra a la carpeta del proyecto
   base = "Frontend/smart-home-frontend"
 
-  # 2. El comando para compilar (estando ya dentro de la carpeta base)
-  command = "ng build"
+  # Agregamos "--prerender false" para que no se quede trabado
+  command = "ng build --prerender false"
 
-  # 3. La carpeta de salida (IMPORTANTE: Relativa a la base)
-  # Según tu último log exitoso, es esta:
-  publish = "dist/smart-home-frontend"
+  # IMPORTANTE: En Angular 17+, la carpeta de salida SIEMPRE es /browser
+  publish = "dist/smart-home-frontend/browser"
 
 [[redirects]]
-  # Esto es para que Angular no dé 404 al recargar el navegador
+  # Esto es para que no te dé 404 al recargar la página
   from = "/*"
   to = "/index.html"
   status = 200
