@@ -146,3 +146,49 @@ $error-text: #B91C1C;
   text-align: center;
   font-weight: 500;
 }
+/* ... tu código SCSS anterior ... */
+
+.btn-login {
+  /* Añadimos flexbox al botón para centrar el spinner junto al texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Espacio entre el spinner y el texto */
+  
+  width: 100%;
+  padding: 0.875rem;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-hover;
+  }
+
+  &:disabled {
+    background-color: #9CA3AF;
+    cursor: not-allowed;
+    opacity: 0.8; /* Un ligero toque visual para indicar inactividad */
+  }
+}
+
+/* Animación y diseño del spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

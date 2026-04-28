@@ -15,23 +15,25 @@ export class LoginComponent {
   correo: string = '';
   contrasena: string = '';
   mensajeError: string = '';
+  cargando: boolean = false; // <-- 1. Nueva variable de estado
 
   private router = inject(Router);
-  private authService = inject(AuthService); // <-- Inyectamos el servicio
+  private authService = inject(AuthService);
 
   iniciarSesion() {
+    this.cargando = true; // <-- 2. Activamos el loader
+    this.mensajeError = ''; // Limpiamos errores previos
+
     const credenciales = { correo: this.correo, contrasena: this.contrasena };
 
-    // Llamamos al backend real
     this.authService.login(credenciales).subscribe({
       next: (respuesta: any) => {
-        // Si Java responde 200 OK (Credenciales correctas)
+        this.cargando = false; // <-- 3. Apagamos el loader al terminar
         console.log('Login exitoso desde la base de datos:', respuesta);
-        this.mensajeError = '';
         this.router.navigate(['/dashboard']); 
       },
       error: (err: any) => {
-        // Si Java responde 401 (Error de credenciales)
+        this.cargando = false; // <-- 4. También lo apagamos si hay error
         console.error('Error de login:', err);
         this.mensajeError = 'Correo o contraseña incorrectos. Intenta de nuevo.';
       }

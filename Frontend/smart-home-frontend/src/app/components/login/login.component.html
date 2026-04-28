@@ -33,11 +33,18 @@
           placeholder="••••••••">
       </div>
 
-      <button 
+<button 
         type="submit" 
         class="btn-login" 
-        [disabled]="!correo || !contrasena">
-        Entrar al Sistema
+        [disabled]="!correo || !contrasena || cargando">
+        
+        <span *ngIf="!cargando">Entrar al Sistema</span>
+        
+        <ng-container *ngIf="cargando">
+          <span class="spinner"></span>
+          Conectando...
+        </ng-container>
+        
       </button>
     </form>
   </div>
