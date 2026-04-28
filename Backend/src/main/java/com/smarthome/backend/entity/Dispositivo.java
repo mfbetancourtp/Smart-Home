@@ -1,35 +1,35 @@
 package com.smarthome.backend.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-import lombok.Data;
+import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "DISPOSITIVO")
 public class Dispositivo {
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dispositivo")
-    private Long idDispositivo;
-
-    @Column(nullable = false, length = 100)
+    private Integer idDispositivo;
     private String nombre;
-
-    @Column(nullable = false, length = 50)
     private String tipo;
-
-    @Column(nullable = false, length = 100)
     private String ubicacion;
-
-    @Column(nullable = false, length = 50)
     private String estado;
+    
+    @Column(name = "id_hub")
+    private Integer idHub;
 
-    @Column(name = "id_hub", nullable = false)
-    private Long idHub;
+    // Getters y Setters
+    public Integer getIdDispositivo() { return idDispositivo; }
+    public void setIdDispositivo(Integer idDispositivo) { this.idDispositivo = idDispositivo; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+    public String getUbicacion() { return ubicacion; }
+    public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
+    public Integer getIdHub() { return idHub; }
+    public void setIdHub(Integer idHub) { this.idHub = idHub; }
 }

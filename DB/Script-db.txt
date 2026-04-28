@@ -1,50 +1,45 @@
--- 1. Tabla ROL
 CREATE TABLE ROL (
-    id_rol INT IDENTITY(1,1) PRIMARY KEY,
+    id_rol SERIAL PRIMARY KEY,
     nombre_rol VARCHAR(50) NOT NULL,
     descripcion VARCHAR(200)
 );
 
 -- 2. Tabla PERMISO
 CREATE TABLE PERMISO (
-    id_permiso INT IDENTITY(1,1) PRIMARY KEY,
+    id_permiso SERIAL PRIMARY KEY,
     nombre_permiso VARCHAR(100) NOT NULL
 );
 
 -- 3. Tabla ROL_PERMISO (Intermedia)
 CREATE TABLE ROL_PERMISO (
-    id_rol INT NOT NULL,
-    id_permiso INT NOT NULL,
-    PRIMARY KEY (id_rol, id_permiso),
-    FOREIGN KEY (id_rol) REFERENCES ROL(id_rol) ON DELETE CASCADE,
-    FOREIGN KEY (id_permiso) REFERENCES PERMISO(id_permiso) ON DELETE CASCADE
+    id_rol INT NOT NULL REFERENCES ROL(id_rol) ON DELETE CASCADE,
+    id_permiso INT NOT NULL REFERENCES PERMISO(id_permiso) ON DELETE CASCADE,
+    PRIMARY KEY (id_rol, id_permiso)
 );
 
 -- 4. Tabla USUARIO
 CREATE TABLE USUARIO (
-    id_usuario INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(150) NOT NULL UNIQUE,
     contraseña_hash VARCHAR(255) NOT NULL,
-    fecha_registro DATETIME NOT NULL DEFAULT GETDATE(),
-    activo BIT NOT NULL DEFAULT 1, -- 1 equivale a TRUE en SQL Server
-    id_rol INT NOT NULL,
-    FOREIGN KEY (id_rol) REFERENCES ROL(id_rol)
+    fecha_registro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    activo BOOLEAN NOT NULL DEFAULT TRUE, 
+    id_rol INT NOT NULL REFERENCES ROL(id_rol)
 );
 
 -- 5. Tabla TOKENS_SESION
 CREATE TABLE TOKENS_SESION (
-    id_sesion INT IDENTITY(1,1) PRIMARY KEY,
-    token NVARCHAR(MAX) NOT NULL,
-    fecha_inicio DATETIME NOT NULL DEFAULT GETDATE(),
-    fecha_fin DATETIME,
-    id_usuario INT NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario) ON DELETE CASCADE
+    id_sesion SERIAL PRIMARY KEY,
+    token TEXT NOT NULL,
+    fecha_inicio TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_fin TIMESTAMP,
+    id_usuario INT NOT NULL REFERENCES USUARIO(id_usuario) ON DELETE CASCADE
 );
 
 -- 6. Tabla HUB
 CREATE TABLE HUB (
-    id_hub INT IDENTITY(1,1) PRIMARY KEY,
+    id_hub SERIAL PRIMARY KEY,
     ip_local VARCHAR(15) NOT NULL,
     version_firmware VARCHAR(20) NOT NULL,
     estado_conexion VARCHAR(50) NOT NULL
@@ -52,88 +47,76 @@ CREATE TABLE HUB (
 
 -- 7. Tabla USUARIO_HUB (Intermedia)
 CREATE TABLE USUARIO_HUB (
-    id_usuario INT NOT NULL,
-    id_hub INT NOT NULL,
-    PRIMARY KEY (id_usuario, id_hub),
-    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario) ON DELETE CASCADE,
-    FOREIGN KEY (id_hub) REFERENCES HUB(id_hub) ON DELETE CASCADE
+    id_usuario INT NOT NULL REFERENCES USUARIO(id_usuario) ON DELETE CASCADE,
+    id_hub INT NOT NULL REFERENCES HUB(id_hub) ON DELETE CASCADE,
+    PRIMARY KEY (id_usuario, id_hub)
 );
 
 -- 8. Tabla DISPOSITIVO
 CREATE TABLE DISPOSITIVO (
-    id_dispositivo INT IDENTITY(1,1) PRIMARY KEY,
+    id_dispositivo SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     tipo VARCHAR(50) NOT NULL,
     ubicacion VARCHAR(100) NOT NULL,
     estado VARCHAR(50) NOT NULL,
-    id_hub INT NOT NULL,
-    FOREIGN KEY (id_hub) REFERENCES HUB(id_hub)
+    id_hub INT NOT NULL REFERENCES HUB(id_hub)
 );
 
 -- 9. Tabla ESCENA
 CREATE TABLE ESCENA (
-    id_escena INT IDENTITY(1,1) PRIMARY KEY,
+    id_escena SERIAL PRIMARY KEY,
     nombre VARCHAR(80) NOT NULL,
     descripcion VARCHAR(200),
-    activa BIT NOT NULL DEFAULT 1,
-    id_hub INT NOT NULL,
-    FOREIGN KEY (id_hub) REFERENCES HUB(id_hub)
+    activa BOOLEAN NOT NULL DEFAULT TRUE,
+    id_hub INT NOT NULL REFERENCES HUB(id_hub)
 );
 
 -- 10. Tabla ACCION_ESCENA
 CREATE TABLE ACCION_ESCENA (
-    id_accion INT IDENTITY(1,1) PRIMARY KEY,
-    id_escena INT NOT NULL,
-    id_dispositivo INT NOT NULL,
+    id_accion SERIAL PRIMARY KEY,
+    id_escena INT NOT NULL REFERENCES ESCENA(id_escena) ON DELETE CASCADE,
+    id_dispositivo INT NOT NULL REFERENCES DISPOSITIVO(id_dispositivo),
     comando VARCHAR(100) NOT NULL,
-    parametro VARCHAR(100),
-    FOREIGN KEY (id_escena) REFERENCES ESCENA(id_escena) ON DELETE CASCADE,
-    FOREIGN KEY (id_dispositivo) REFERENCES DISPOSITIVO(id_dispositivo)
+    parametro VARCHAR(100)
 );
 
 -- 11. Tabla TAREAS_PROGRAMADAS
 CREATE TABLE TAREAS_PROGRAMADAS (
-    id_tarea INT IDENTITY(1,1) PRIMARY KEY,
+    id_tarea SERIAL PRIMARY KEY,
     expresion_cron VARCHAR(50) NOT NULL,
     descripcion VARCHAR(200),
-    activa BIT NOT NULL DEFAULT 1,
-    id_escena INT,
-    id_dispositivo INT,
-    FOREIGN KEY (id_escena) REFERENCES ESCENA(id_escena) ON DELETE SET NULL,
-    FOREIGN KEY (id_dispositivo) REFERENCES DISPOSITIVO(id_dispositivo) ON DELETE SET NULL
+    activa BOOLEAN NOT NULL DEFAULT TRUE,
+    id_escena INT REFERENCES ESCENA(id_escena) ON DELETE SET NULL,
+    id_dispositivo INT REFERENCES DISPOSITIVO(id_dispositivo) ON DELETE SET NULL
 );
 
 -- 12. Tabla ALERTA
 CREATE TABLE ALERTA (
-    id_alerta INT IDENTITY(1,1) PRIMARY KEY,
+    id_alerta SERIAL PRIMARY KEY,
     tipo VARCHAR(50) NOT NULL,
     mensaje VARCHAR(255) NOT NULL,
-    fecha_hora DATETIME NOT NULL DEFAULT GETDATE(),
-    leida BIT NOT NULL DEFAULT 0, -- 0 equivale a FALSE en SQL Server
-    id_dispositivo INT NOT NULL,
-    id_usuario INT NOT NULL,
-    FOREIGN KEY (id_dispositivo) REFERENCES DISPOSITIVO(id_dispositivo),
-    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
+    fecha_hora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    leida BOOLEAN NOT NULL DEFAULT FALSE, 
+    id_dispositivo INT NOT NULL REFERENCES DISPOSITIVO(id_dispositivo),
+    id_usuario INT NOT NULL REFERENCES USUARIO(id_usuario)
 );
 
 -- 13. Tabla PREFERENCIAS_NOTIFICACION
 CREATE TABLE PREFERENCIAS_NOTIFICACION (
-    id_preferencia INT IDENTITY(1,1) PRIMARY KEY,
-    id_usuario INT NOT NULL,
+    id_preferencia SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL REFERENCES USUARIO(id_usuario) ON DELETE CASCADE,
     tipo_alerta VARCHAR(50) NOT NULL,
-    canal_push BIT NOT NULL DEFAULT 1,
-    canal_email BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario) ON DELETE CASCADE
+    canal_push BOOLEAN NOT NULL DEFAULT TRUE,
+    canal_email BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 -- 14. Tabla HISTORIAL_AUDITORIA
 CREATE TABLE HISTORIAL_AUDITORIA (
-    id_auditoria INT IDENTITY(1,1) PRIMARY KEY,
+    id_auditoria SERIAL PRIMARY KEY,
     accion VARCHAR(100) NOT NULL,
     tabla_afectada VARCHAR(50),
     id_registro_afectado INT,
-    fecha_hora DATETIME NOT NULL DEFAULT GETDATE(),
-    id_usuario INT,
-    detalles_json NVARCHAR(MAX), -- SQL Server maneja el JSON internamente en campos NVARCHAR(MAX)
-    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario) ON DELETE SET NULL
+    fecha_hora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT REFERENCES USUARIO(id_usuario) ON DELETE SET NULL,
+    detalles_json TEXT 
 );

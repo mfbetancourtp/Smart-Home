@@ -1,13 +1,20 @@
 package com.smarthome.backend.service;
 
 import java.util.List;
-
 import com.smarthome.backend.entity.Dispositivo;
 
 public interface DispositivoService {
+    
     List<Dispositivo> listarTodos();
-    Dispositivo obtenerPorId(Long id);
+    
+    // AQUÍ ESTABA EL ERROR: Cambiamos Long por Integer
+    Dispositivo obtenerPorId(Integer id); 
+    
     Dispositivo guardar(Dispositivo dispositivo);
-    Dispositivo actualizarEstado(Long id, String nuevoEstado);
-    void eliminar(Long id);
+    
+    // AQUÍ TAMBIÉN: Cambiamos Long por Integer
+    Dispositivo actualizarEstado(Integer id, String nuevoEstado); 
+    
+    // Y AQUÍ: Cambiamos Long por Integer
+    void eliminar(Integer id); 
 }

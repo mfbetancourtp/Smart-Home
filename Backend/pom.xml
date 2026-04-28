@@ -6,13 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
-	<groupId>com.soaint</groupId>
-	<artifactId>smart-home-documental-service</artifactId>
-	<version>1.0.0</version>
-	<packaging>war</packaging>
-	<name>smart smart-home-documental-service</name>
+    <groupId>com.soaint</groupId>
+    <artifactId>smart-home-documental-service</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>smart smart-home-documental-service</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
@@ -41,7 +41,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -49,8 +48,9 @@
             <version>2.8.5</version>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -60,70 +60,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
- <!--Filenet Dependencias-->
-<!--        <dependency>-->
-<!--            <groupId>com.filenet</groupId>-->
-<!--            <artifactId>jace</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.filenetRecords</groupId>-->
-<!--            <artifactId>Jarm</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.filenetRecordsResources</groupId>-->
-<!--            <artifactId>JarmResources</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.filenet</groupId>-->
-<!--            <artifactId>Jace_t</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.filenet</groupId>-->
-<!--            <artifactId>p8cel10n</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.filenet</groupId>-->
-<!--            <artifactId>client-download</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.ibm.ier</groupId>-->
-<!--            <artifactId>ierLogTrace</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.recordsManagement</groupId>-->
-<!--            <artifactId>irm-api</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.recordsManagement</groupId>-->
-<!--            <artifactId>wcm-api</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.recordsManagement</groupId>-->
-<!--            <artifactId>pe-api</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
-
-
-
-
-
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
             <version>2.12.1</version>
         </dependency>
-
-        <!--Filenet Dependencias-->
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -154,59 +95,6 @@
             <artifactId>modelmapper</artifactId>
             <version>2.3.8</version>
         </dependency>
-        <!--log4j Dependencias-->
-        <!--
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-1.2-api</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        -->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-1.2-api</artifactId>
-            <version>2.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.17.1</version>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -227,25 +115,20 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.32</version>
         </dependency>
-        <!--log4j Dependencias-->
         <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
             <version>9.2</version>
         </dependency>
-        
-        
-         <dependency>
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -271,22 +154,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
             </plugin>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <directory>src/main/resources/lib</directory>
-                            <targetPath>WEB-INF/lib</targetPath>
-                            <includes>
-                                <include>**/*.jar</include>
-                            </includes>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>-->
         </plugins>
         <resources>
             <resource>
@@ -294,5 +161,4 @@
             </resource>
         </resources>
     </build>
-
 </project>

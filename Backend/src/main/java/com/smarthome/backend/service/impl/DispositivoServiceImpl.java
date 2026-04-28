@@ -24,9 +24,10 @@ public class DispositivoServiceImpl implements DispositivoService {
         return repo.findAll();
     }
 
+    // CAMBIO AQUÍ: Integer en lugar de Long
     @Override
     @Transactional(readOnly = true)
-    public Dispositivo obtenerPorId(Long id) {
+    public Dispositivo obtenerPorId(Integer id) {
         return repo.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Dispositivo no encontrado con ID: " + id));
     }
@@ -34,21 +35,23 @@ public class DispositivoServiceImpl implements DispositivoService {
     @Override
     @Transactional
     public Dispositivo guardar(Dispositivo dispositivo) {
-        // Lógica de negocio: Validar que el tipo de dispositivo sea válido [cite: 171]
+        // Lógica de negocio: Validar que el tipo de dispositivo sea válido
         return repo.save(dispositivo);
     }
 
+    // CAMBIO AQUÍ: Integer en lugar de Long
     @Override
     @Transactional
-    public Dispositivo actualizarEstado(Long id, String nuevoEstado) {
+    public Dispositivo actualizarEstado(Integer id, String nuevoEstado) {
         Dispositivo d = obtenerPorId(id);
-        d.setEstado(nuevoEstado); // Ej: 'Activo', 'Falla', 'Inactivo' [cite: 171]
+        d.setEstado(nuevoEstado); 
         return repo.save(d);
     }
 
+    // CAMBIO AQUÍ: Integer en lugar de Long
     @Override
     @Transactional
-    public void eliminar(Long id) {
+    public void eliminar(Integer id) {
         if (!repo.existsById(id)) {
             throw new ResourceNotFoundException("No se puede eliminar: ID no existe");
         }

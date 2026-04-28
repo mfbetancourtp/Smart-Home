@@ -1,55 +1,106 @@
-.dashboard-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+// Variables
+$bg-color: #F9FAFB;
+$active-bg: #ECFDF5;
+$active-color: #10B981;
 
-  h2 {
-    color: #333;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
-  }
+.dashboard-wrapper {
+  min-height: 100vh;
+  background-color: $bg-color;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+}
 
-  .alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  h2 { margin: 0; font-size: 1.8rem; }
+}
 
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
 
-    th, td {
+.panel-agregar {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  
+  .form-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    input, select {
+      flex: 1;
+      padding: 0.6rem;
       border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
+      border-radius: 6px;
     }
-
-    th {
-      background-color: #f4f4f4;
-      color: #333;
-    }
-
-    button {
-      margin-right: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-
-      &:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
-    }
-  }
-
-  .estado-activo {
-    color: green;
-    font-weight: bold;
-  }
-
-  .estado-inactivo {
-    color: gray;
   }
 }
+
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.device-card {
+  position: relative; // <--- CRUCIAL: Mantiene la papelera adentro
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #E5E7EB;
+  transition: all 0.3s ease;
+
+  &.is-active {
+    background-color: $active-bg;
+    border-color: #A7F3D0;
+  }
+
+  .device-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.btn-delete-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover { background: #fee2e2; transform: scale(1.1); }
+}
+
+.btn-logout {
+  background: #fff1f0;
+  color: #e74c3c;
+  border: 1px solid #ffccc7;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover { background: #e74c3c; color: white; }
+}
+
+.btn-on { background: $active-color; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.btn-off { background: #F3F4F6; color: #6B7280; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.btn-guardar { background: $active-color; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }

@@ -1,0 +1,148 @@
+// Añade esto al inicio de tu SCSS
+:host {
+  display: block;
+  width: 100%;
+}
+
+.login-wrapper {
+  min-height: 100vh;
+  width: 100%; // Aseguramos que tome todo el ancho
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111827; // Fondo oscuro elegante
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.login-card {
+  background: #1F2937; // Tarjeta gris oscura
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); // Sombra más fuerte
+
+  .login-header h2, .form-group label {
+    color: #F9FAFB; // Texto blanco
+  }
+  
+  .login-header p {
+    color: #9CA3AF; // Texto gris claro
+  }
+
+  input {
+    background-color: #374151;
+    color: white;
+    border: 1px solid #4B5563;
+    // ... mantén el resto del estilo del input ...
+  }
+}// Variables para un look moderno
+$primary-color: #4F46E5;
+$primary-hover: #4338CA;
+$bg-color: #F3F4F6;
+$text-main: #111827;
+$text-muted: #6B7280;
+$error-bg: #FEE2E2;
+$error-text: #B91C1C;
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $bg-color;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.login-card {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+  .login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    .icon-home {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      margin: 0;
+      color: $text-main;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    p {
+      color: $text-muted;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-main;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box; // Evita que el input se salga del div
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+  }
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.875rem;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-hover;
+  }
+
+  &:disabled {
+    background-color: #9CA3AF;
+    cursor: not-allowed;
+  }
+}
+
+.alert-error {
+  background-color: $error-bg;
+  color: $error-text;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}

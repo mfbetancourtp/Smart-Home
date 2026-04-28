@@ -2,6 +2,7 @@ package com.smarthome.backend.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -10,10 +11,26 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    // Usamos EXACTAMENTE la misma clave secreta que el otro proyecto
-    private final String secret = "ClaveUltraSecretaDeColpensiones2026_NoCompartir_SeguridadSRE";
+    // Cambiamos el secreto a uno coherente con el proyecto y lo suficientemente fuerte
+    // En producción, esto debe inyectarse con @Value("${jwt.secret}") desde application.properties
+    private final String secret = "SmartHome120m2_ClaveSecreta_ProyectoPoligran_2026_NoCompartir";
 
-    // 1. Validar si el token es legítimo (Espejo del otro proyecto)
+    // -------------------------------------------------------------------
+    // 0. NUEVO: Generar el token (Requerido por el AuthController)
+    // -------------------------------------------------------------------
+    public String generarToken(String correo) {
+        long expirationTime = 86400000; // 24 horas en milisegundos
+        return Jwts.builder()
+                .setSubject(correo) // Usamos el correo como identificador principal
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+
+    // -------------------------------------------------------------------
+    // 1. Validar si el token es legítimo (Tu código espejo)
+    // -------------------------------------------------------------------
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
@@ -24,7 +41,9 @@ public class JwtUtil {
         }
     }
 
-    // 2. Extraer el username del token (Espejo del otro proyecto)
+    // -------------------------------------------------------------------
+    // 2. Extraer el username / correo del token (Tu código espejo)
+    // -------------------------------------------------------------------
     public String extractUsername(String token) {
         try {
             return getClaimFromToken(token, Claims::getSubject);
@@ -33,7 +52,9 @@ public class JwtUtil {
         }
     }
 
-    // Métodos de apoyo internos (Idénticos al otro proyecto)
+    // -------------------------------------------------------------------
+    // Métodos de apoyo internos
+    // -------------------------------------------------------------------
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
         return claimsResolver.apply(claims);

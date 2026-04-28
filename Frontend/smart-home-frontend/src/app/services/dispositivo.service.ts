@@ -25,4 +25,17 @@ export class DispositivoService {
   updateEstado(id: number, estado: string): Observable<Dispositivo> {
     return this.http.put<Dispositivo>(`${this.apiUrl}/${id}/estado`, { estado });
   }
+
+  cambiarEstado(id: number, nuevoEstado: string): Observable<any> {
+    const body = { estado: nuevoEstado };
+    return this.http.put(`${this.apiUrl}/${id}/estado`, body);
+  }
+
+  crearDispositivo(dispositivo: any): Observable<any> {
+    return this.http.post(this.apiUrl, dispositivo);
+  }
+
+  eliminarDispositivo(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
