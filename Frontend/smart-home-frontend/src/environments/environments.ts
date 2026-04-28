@@ -1,5 +1,4 @@
 export const environment = {
-  production: false,
-  // Esta es la ruta base de tu servidor Java Spring Boot local
-  backendUrl: 'http://localhost:8080' 
+  production: true, // Cambia esto a true
+  backendUrl: 'https://smart-home-backend-uijg.onrender.com' // Tu backend de Render
 };

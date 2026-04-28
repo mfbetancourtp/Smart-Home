@@ -24,13 +24,13 @@ export class LoginComponent {
 
     // Llamamos al backend real
     this.authService.login(credenciales).subscribe({
-      next: (respuesta) => {
+      next: (respuesta: any) => {
         // Si Java responde 200 OK (Credenciales correctas)
         console.log('Login exitoso desde la base de datos:', respuesta);
         this.mensajeError = '';
         this.router.navigate(['/dashboard']); 
       },
-      error: (err) => {
+      error: (err: any) => {
         // Si Java responde 401 (Error de credenciales)
         console.error('Error de login:', err);
         this.mensajeError = 'Correo o contraseña incorrectos. Intenta de nuevo.';

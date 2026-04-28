@@ -1,6 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
+
+// 1. Importa tu archivo environment (asegúrate de que la ruta coincida con la estructura de tus carpetas)
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +11,15 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private http = inject(HttpClient);
   
-  // Esta es la ruta de tu Spring Boot
-  private apiUrl = 'http://localhost:8080/api/auth'; 
+  // 2. Reemplaza el localhost usando la variable que definimos en el environment
+  private apiUrl = `${environment.backendUrl}/api/auth`; 
 
   login(credenciales: { correo: string, contrasena: string }): Observable<any> {
-    // Hace una petición POST enviando el correo y la clave al backend
     return this.http.post(`${this.apiUrl}/login`, credenciales);
   }
-  // En auth.service.ts
-logout() {
-  // Borramos el token o los datos del usuario del almacenamiento local
-  localStorage.removeItem('user_token'); // O como lo hayas guardado
-  sessionStorage.clear(); // Limpia todo por seguridad
-}
+
+  logout() {
+    localStorage.removeItem('user_token'); // O como lo hayas guardado
+    sessionStorage.clear(); // Limpia todo por seguridad
+  }
 }

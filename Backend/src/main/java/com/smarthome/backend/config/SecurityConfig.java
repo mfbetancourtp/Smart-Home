@@ -49,13 +49,22 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
+@Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        configuration.setAllowedOriginPatterns(Arrays.asList("*")); 
+        // 1. Aquí ponemos explícitamente los orígenes permitidos
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:4200", 
+            "https://extraordinary-axolotl-729bce.netlify.app" // ⚠️ CAMBIA ESTO por tu URL real de Netlify final (sin la barra / al final)
+        )); 
+        
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        
+        // 2. Permitimos todos los headers para evitar bloqueos extraños de Angular
+        configuration.setAllowedHeaders(Arrays.asList("*")); 
+        
+        // 3. Credenciales en true (como lo tenías, que está bien)
         configuration.setAllowCredentials(true); 
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
