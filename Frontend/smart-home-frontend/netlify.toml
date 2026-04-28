@@ -1,0 +1,13 @@
+[build]
+  # Entra a la carpeta de tu frontend
+  base = "Frontend/smart-home-frontend"
+  # Ejecuta el build de Angular
+  command = "ng build"
+  # Publica la carpeta EXACTA donde Angular 17 deja los archivos del navegador
+  publish = "Frontend/smart-home-frontend/dist/smart-home-frontend/browser"
+
+[[redirects]]
+  # Esto arregla el problema de que si recargas la página te dé 404
+  from = "/*"
+  to = "/index.html"
+  status = 200
