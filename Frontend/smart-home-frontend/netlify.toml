@@ -1,13 +1,12 @@
 [build]
-  # Entra a la carpeta de tu frontend
-  base = "Frontend/smart-home-frontend"
-  # Ejecuta el build de Angular
+  # Como el archivo ya está en la subcarpeta, el comando se ejecuta ahí mismo
   command = "ng build"
-  # Publica la carpeta EXACTA donde Angular 17 deja los archivos del navegador
-  publish = "Frontend/smart-home-frontend/dist/smart-home-frontend/browser"
+  
+  # La ruta de publicación debe ser RELATIVA a donde está este archivo
+  publish = "dist/smart-home-frontend/browser"
 
 [[redirects]]
-  # Esto arregla el problema de que si recargas la página te dé 404
+  # Esto es VITAL para que Angular funcione al refrescar la página
   from = "/*"
   to = "/index.html"
   status = 200
