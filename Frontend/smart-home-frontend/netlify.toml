@@ -2,14 +2,14 @@
   # Entra a la carpeta del proyecto
   base = "Frontend/smart-home-frontend"
 
-  # Agregamos "--prerender false" para que no se quede trabado
-  command = "ng build --prerender false"
+  # Quitamos el --prerender false porque al desactivar el SSR en angular.json ya no aplica
+  command = "ng build"
 
-  # IMPORTANTE: En Angular 17+, la carpeta de salida SIEMPRE es /browser
+  # La ruta de salida correcta para Angular
   publish = "dist/smart-home-frontend/browser"
 
 [[redirects]]
-  # Esto es para que no te dé 404 al recargar la página
+  # Fundamental para que el router de Angular funcione sin dar 404 al recargar
   from = "/*"
   to = "/index.html"
   status = 200

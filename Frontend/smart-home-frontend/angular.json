@@ -19,28 +19,22 @@
       "architect": {
         "build": {
           "builder": "@angular/build:application",
-          "options": {
-            "browser": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "security": {
-              "allowedHosts": []
-            },
-            "ssr": {
-              "entry": "src/server.ts"
-            }
-          },
+"options": {
+  "outputPath": "dist/smart-home-frontend",
+  "index": "src/index.html",
+  "browser": "src/main.ts",
+  "tsConfig": "tsconfig.app.json",
+  "inlineStyleLanguage": "scss",
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "public"
+    }
+  ],
+  "styles": [
+    "src/styles.scss"
+  ]
+},
           "configurations": {
             "production": {
               "budgets": [
